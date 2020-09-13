@@ -32,7 +32,7 @@ struct StudiesUI: View {
             InsightView(color: self.color)
                 .tabItem{
                     Image("tab_dashboard").renderingMode(.template)
-                    Text("Insight")
+                    Text("Insights")
             }
 
             
@@ -326,9 +326,154 @@ struct InsightView: View {
     }
     
     var body: some View {
-        VStack {
-            Text("This is the Insight Page")
+        ScrollView {
+            VStack {
+                HStack {
+                    // TODO: Add row of numbers and circles
+                    Text("7")
+                    Text("8")
+                    Text("9")
+                    Text("10")
+                    Text("11")
+                    Text("12")
+                    Text("13")
+                }.border(Color.gray).frame(width: UIScreen.main.bounds.size.width)
+                Text("Sep 13, 2020")
+                
+                // Card #1
+                VStack{
+                    VStack {
+                        VStack {
+                            Text("Six Minute Walk").font(.headline)
+                            Text("Distance (in meters)").font(.subheadline)
+                        }.padding(4)
+                        Spacer()
+                        HStack {
+                            VStack {
+                                Text("S")
+                                Text("13")
+                            }
+                            VStack {
+                                Text("M")
+                                Text("0")
+                            }
+                            VStack {
+                                Text("T")
+                                Text("7")
+                            }
+                            VStack {
+                                Text("W")
+                                Text("9")
+                            }
+                            VStack {
+                                Text("T")
+                                Text("16")
+                            }
+                            VStack {
+                                Text("F")
+                                Text("3")
+                            }
+                            VStack {
+                                Text("S")
+                                Text("8")
+                            }
+                        }
+                        Spacer()
+                    }
+                }.frame(width: 250, height: 250, alignment: .center)
+                .border(Color.gray)
+                .padding(8)
+                
+                // Card #2
+                VStack{
+                    VStack {
+                        VStack {
+                            Text("Breathe").font(.headline)
+                            Text("# of Times Completed").font(.subheadline)
+                        }.padding(4)
+                        Spacer()
+                        HStack {
+                            VStack {
+                                Text("S")
+                                Text("6")
+                            }
+                            VStack {
+                                Text("M")
+                                Text("0")
+                            }
+                            VStack {
+                                Text("T")
+                                Text("2")
+                            }
+                            VStack {
+                                Text("W")
+                                Text("9")
+                            }
+                            VStack {
+                                Text("T")
+                                Text("16")
+                            }
+                            VStack {
+                                Text("F")
+                                Text("1")
+                            }
+                            VStack {
+                                Text("S")
+                                Text("4")
+                            }
+                        }
+                        Spacer()
+                    }
+                }.frame(width: 250, height: 250, alignment: .center)
+                .border(Color.gray)
+                .padding(8)
+                
+                // Card #3
+                VStack{
+                    VStack {
+                        VStack {
+                            Text("Back Pain").font(.headline)
+                            Text("# of Occurances").font(.subheadline)
+                        }.padding(4)
+                        Spacer()
+                        HStack {
+                            VStack {
+                                Text("S")
+                                Text("13")
+                            }
+                            VStack {
+                                Text("M")
+                                Text("0")
+                            }
+                            VStack {
+                                Text("T")
+                                Text("7")
+                            }
+                            VStack {
+                                Text("W")
+                                Text("9")
+                            }
+                            VStack {
+                                Text("T")
+                                Text("16")
+                            }
+                            VStack {
+                                Text("F")
+                                Text("3")
+                            }
+                            VStack {
+                                Text("S")
+                                Text("8")
+                            }
+                        }
+                        Spacer()
+                    }
+                }.frame(width: 250, height: 250, alignment: .center)
+                .border(Color.gray)
+                .padding(8)
+            }
         }
+        //.frame(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
     }
 }
 
