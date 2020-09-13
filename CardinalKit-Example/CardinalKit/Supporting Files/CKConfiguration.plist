@@ -94,25 +94,25 @@
 			<key>Title</key>
 			<string>Health Track App</string>
 			<key>Description</key>
-			<string>Hellloooooooooo</string>
+			<string>Welcome aboard, Slide to know more about us and please click on Join study to proceed.</string>
 			<key>Logo</key>
 			<string>🏥</string>
 		</dict>
 		<dict>
 			<key>Title</key>
-			<string>Second Title</string>
+			<string>Learning</string>
 			<key>Description</key>
-			<string>Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</string>
+			<string>You can learn about several health related resources.</string>
 			<key>Logo</key>
-			<string>🏥</string>
+			<string>📓</string>
 		</dict>
 		<dict>
 			<key>Title</key>
-			<string>Third Title</string>
+			<string>Insights</string>
 			<key>Description</key>
-			<string>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</string>
+			<string>You can see insights on your health, while tracking you daily activities.</string>
 			<key>Logo</key>
-			<string>🏥</string>
+			<string>📊</string>
 		</dict>
 	</array>
 </dict>
