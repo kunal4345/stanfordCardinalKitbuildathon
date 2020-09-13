@@ -1,16 +1,10 @@
-//
-//  StudiesUI.swift
-//  CardinalKit_Example
-//
-//  Created by Varun Shenoy on 8/14/20.
-//  Copyright © 2020 Stanford University. All rights reserved.
-//
-
 import SwiftUI
 import MessageUI
 import CardinalKit
 import ResearchKit
 import Firebase
+public var healthscale1 = 0
+public var healthscale2 = 0
 
 struct StudiesUI: View {
     
@@ -32,7 +26,7 @@ struct StudiesUI: View {
             InsightView(color: self.color)
                 .tabItem{
                     Image("tab_dashboard").renderingMode(.template)
-                    Text("Insight")
+                    Text("Insights")
             }
 
             
@@ -318,17 +312,325 @@ struct VideosView: View{
 
 
 // TODO: Complete Insight Page
-struct InsightView: View {
+
+    let db = Firestore.firestore()
+
+
+public struct InsightView: View {
     let color: Color
     
     init(color: Color) {
         self.color = color
     }
-    
-    var body: some View {
-        VStack {
-            Text("This is the Insight Page")
+
+   
+//    db.collection("studies").getDocuments() { (querySnapshot, err) in
+//        if let err = err {
+//            print("Error getting documents: \(err)")
+//        } else {
+//            for document in querySnapshot!.documents {
+//                print("\(document.documentID) => \(document.data())")
+//            }
+//        }
+//    }
+//
+var days : [String] = ["M","T","W","T","F","S"]
+//    let inthealthscale1 = Int(healthscale1)
+//    let inthealthscale2 = Int(healthscale2)
+//    let height = (inthealthscale1 * 10)
+//    let height1 = (inthealthscale2 * 10)
+    var cgfloat = CGFloat(healthscale1)
+    var cgfloat1 = CGFloat(healthscale2)
+
+  
+    public var body: some View {
+        ScrollView {
+
+           
+
+            
+            VStack {
+                
+                HStack {
+                    // TODO: Add row of numbers and circles
+                    
+                    
+                    Text("13")
+                    Text("14")
+                    Text("15")
+                    Text("16")
+                    Text("17")
+                    Text("18")
+                    Text("19")
+                }.border(Color.gray).frame(width: UIScreen.main.bounds.size.width)
+                Text("Sep 13, 2020")
+                
+                // Card #1
+                VStack{
+                                   VStack {
+                                       VStack {
+                                           Text("Back Pain").font(.headline)
+                                           Text("Level of Pain").font(.subheadline)
+                                       }.padding(15)
+//                                       Spacer()
+                                    
+                                                HStack {
+                                                  // 2
+                                                    
+                                                    VStack {
+                                                             // 4
+                                                             Spacer()
+                                                             // 5
+                                                        HStack(alignment: .bottom){
+                                                             Rectangle()
+                                                               .fill(Color.green)
+                                                                .frame(width: 10, height: CGFloat(healthscale1) )
+                                                                Rectangle()
+                                                                  .fill(Color.green)
+                                                                    .frame(width: 10, height: CGFloat(healthscale2))
+                                                            
+                                                        }
+                                                             // 6
+                                                               Text("S")
+                                                               .font(.footnote)
+                                                               .frame(height: 20)
+                                                        
+                                                           }
+                                                  ForEach(0..<6) { temp in
+                                                    // 3
+                                                    VStack {
+                                                      // 4
+                                                      Spacer()
+                                                      // 5
+                                                      Rectangle()
+                                                        .fill(Color.green)
+                                                        .frame(width: 10, height: 01)
+                                                      // 6
+                                                        Text(self.days[temp])
+                                                        .font(.footnote)
+                                                        .frame(height: 20)
+                                                    }
+                                                  }
+                                    }
+
+//                                       HStack {
+//                                           VStack {
+//                                               Text("S")
+//                                               Text(healthscale1)
+//                                               Text(healthscale2)
+//
+//                                           }
+//                                           VStack {
+//                                               Text("M")
+//                                               Text("-")
+//                                               Text("-")
+//
+//                                           }
+//                                           VStack {
+//                                               Text("T")
+//                                               Text("-")
+//                                               Text("-")
+//                                           }
+//                                           VStack {
+//                                               Text("W")
+//                                               Text("-")
+//                                               Text("-")
+//                                           }
+//                                           VStack {
+//                                               Text("T")
+//                                               Text("-")
+//                                               Text("-")
+//                                           }
+//                                           VStack {
+//                                               Text("F")
+//                                               Text("-")
+//                                               Text("-")
+//                                           }
+//                                           VStack {
+//                                               Text("S")
+//                                               Text("-")
+//                                               Text("-")
+//                                           }
+//                                       }
+                                       Spacer()
+                                   }
+                               }.frame(width: 250, height: 250, alignment: .center)
+                               .border(Color.gray)
+                               .padding(8)
+                
+                //card 2
+                VStack{
+                    VStack {
+                        VStack {
+                            Text("Six Minute Walk").font(.headline)
+                            Text("Distance (in meters)").font(.subheadline)
+                        }.padding(2)
+                        
+                        HStack {
+                                                       // 2
+                                                         
+                                                         VStack {
+                                                                  // 4
+                                                                  Spacer()
+                                                                  // 5
+                                                             HStack(alignment: .bottom){
+                                                                  Rectangle()
+                                                                    .fill(Color.green)
+                                                                     .frame(width: 10, height: 30)
+                                                                     
+                                                                 
+                                                             }
+                                                                  // 6
+                                                                    Text("S")
+                                                                    .font(.footnote)
+                                                                    .frame(height: 20)
+                                                             
+                                                                }
+                                                       ForEach(0..<6) { temp in
+                                                         // 3
+                                                         VStack {
+                                                           // 4
+                                                           Spacer()
+                                                           // 5
+                                                           Rectangle()
+                                                             .fill(Color.green)
+                                                             .frame(width: 10, height: 01)
+                                                           // 6
+                                                             Text(self.days[temp])
+                                                             .font(.footnote)
+                                                             .frame(height: 20)
+                                                         }
+                                                       }
+                                         }
+
+                        
+                        
+//                        Spacer()
+//                        HStack {
+//                            VStack {
+//                                Text("S")
+//                                Text("8")
+//                            }
+//                            VStack {
+//                                Text("M")
+//                                Text("-")
+//                            }
+//                            VStack {
+//                                Text("T")
+//                                Text("-")
+//                            }
+//                            VStack {
+//                                Text("W")
+//                                Text("-")
+//                            }
+//                            VStack {
+//                                Text("T")
+//                                Text("-")
+//                            }
+//                            VStack {
+//                                Text("F")
+//                                Text("-")
+//                            }
+//                            VStack {
+//                                Text("S")
+//                                Text("-")
+//                            }
+//                        }
+                        Spacer()
+                    }
+                }.frame(width: 250, height: 250, alignment: .center)
+                .border(Color.gray)
+                .padding(8)
+                
+                // Card #3
+                VStack{
+                    VStack {
+                        VStack {
+                            Text("Breathe").font(.headline)
+                            Text("# of Times Completed").font(.subheadline)
+                        }.padding(2)
+                        
+                        HStack {
+                                                                              // 2
+                                                                                
+                                                                                VStack {
+                                                                                         // 4
+                                                                                         Spacer()
+                                                                                         // 5
+                                                                                    HStack(alignment: .bottom){
+                                                                                         Rectangle()
+                                                                                           .fill(Color.green)
+                                                                                            .frame(width: 10, height: 50)
+                                                                                            
+                                                                                        
+                                                                                    }
+                                                                                         // 6
+                                                                                           Text("S")
+                                                                                           .font(.footnote)
+                                                                                           .frame(height: 20)
+                                                                                    
+                                                                                       }
+                                                                              ForEach(0..<6) { temp in
+                                                                                // 3
+                                                                                VStack {
+                                                                                  // 4
+                                                                                  Spacer()
+                                                                                  // 5
+                                                                                  Rectangle()
+                                                                                    .fill(Color.green)
+                                                                                    .frame(width: 10, height: 01)
+                                                                                  // 6
+                                                                                    Text(self.days[temp])
+                                                                                    .font(.footnote)
+                                                                                    .frame(height: 20)
+                                                                                }
+                                                                              }
+                                                                }
+
+                                               
+                        
+                        
+//                        Spacer()
+//                        HStack {
+//                            VStack {
+//                                Text("S")
+//                                Text("6")
+//                            }
+//                            VStack {
+//                                Text("M")
+//                                Text("-")
+//                            }
+//                            VStack {
+//                                Text("T")
+//                                Text("-")
+//                            }
+//                            VStack {
+//                                Text("W")
+//                                Text("-")
+//                            }
+//                            VStack {
+//                                Text("T")
+//                                Text("-")
+//                            }
+//                            VStack {
+//                                Text("F")
+//                                Text("-")
+//                            }
+//                            VStack {
+//                                Text("S")
+//                                Text("-")
+//                            }
+//                        }
+//                        Spacer()
+                    }
+                }.frame(width: 250, height: 250, alignment: .center)
+                .border(Color.gray)
+                .padding(8)
+                
+               
+            }
         }
+        //.frame(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
     }
 }
 
@@ -694,14 +996,86 @@ struct TaskVC: UIViewControllerRepresentable {
 
         }
 
-    class Coordinator: NSObject, ORKTaskViewControllerDelegate {
+    public class Coordinator: NSObject, ORKTaskViewControllerDelegate {
+       
         public func taskViewController(_ taskViewController: ORKTaskViewController, didFinishWith reason: ORKTaskViewControllerFinishReason, error: Error?) {
             switch reason {
             case .completed:
                do {
                     // (1) convert the result of the ResearchKit task into a JSON dictionary
                     if let json = try CKTaskResultAsJson(taskViewController.result) {
+//                        print("****************************")
+//                        print(json)
+//                        print("=============================")
+                        let x = String(describing: taskViewController.result.stepResult(forStepIdentifier: "HealthScaleQuestionStep1"))
+                        let y = String(describing: taskViewController.result.stepResult(forStepIdentifier: "HealthScaleQuestionStep2"))
+                        //print(x)
+                        let numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                        let answer = "answer: "
+                       
+
+                        for i in numbers
+                        {
+                            
+                            
+                            var stringint = "\(i)"
+                            var finalstring = answer + stringint
+                            if x.contains(finalstring){
+                             //   print(i)
+                                healthscale1 = i * 10
+                                break;
+                            }
+                            else{
+                                print("not found")
+                            }
+                        }
                         
+                        for j in numbers
+                        {
+                            
+                            var stringint1 = "\(j)"
+                            var finalstring1 = answer + stringint1
+                            if y.contains(finalstring1){
+                             //   print(i)
+                                healthscale2 = j * 10
+                                break;
+                            }
+                            else{
+                                print("not found")
+                            }
+                        }
+                        
+                        print("##############################")
+                        print(healthscale1)
+                        print(healthscale2)
+                        
+                        
+                       print("##############################")
+
+
+//
+//                       let db = Firestore.firestore()
+//                        db.collection("studies").document("com.number.CardinalKit").collection("users")                                     .document("number")
+//.setData(["number" : healthscale1, "number2" : healthscale2]) { err in
+//                                        if let err = err {
+//                                            print("Error writing document: \(err)")
+//                                        } else {
+//                                            // TODO: better configurable feedback via something like:
+//                                            // https://github.com/Daltron/NotificationBanner
+//                                            print("Document successfully written!")
+//                    //                       print("HEREEEEEEEEE")
+//                    //                        print(dataPayload.compactMapValues { $0 })
+//                    //                        self.CKGetJSON()
+//
+//                                        }
+//                                    }
+//                        print("****************************")
+//
+//                        print(taskViewController.result.stepResult(forStepIdentifier: "HealthScaleQuestionStep2") )
+
+//                        print(json)
+                        print("****************************")
+
                         // (2) send using Firebase
                         try CKSendJSON(json)
                         
@@ -718,6 +1092,7 @@ struct TaskVC: UIViewControllerRepresentable {
                 taskViewController.dismiss(animated: true, completion: nil)
                 
             }
+        
         }
         
         /**
@@ -749,7 +1124,6 @@ struct TaskVC: UIViewControllerRepresentable {
         /**
          Parse a result from a ResearchKit task and convert to a dictionary.
          JSON-friendly.
-
          - Parameters:
             - result: original `ORKTaskResult`
          - Returns: [String:Any] dictionary with ResearchKit `ORKTaskResult`
@@ -784,12 +1158,36 @@ struct TaskVC: UIViewControllerRepresentable {
                         // TODO: better configurable feedback via something like:
                         // https://github.com/Daltron/NotificationBanner
                         print("Document successfully written!")
+//                       print("HEREEEEEEEEE")
+//                        print(dataPayload.compactMapValues { $0 })
+//                        self.CKGetJSON()
+
                     }
                 }
                 
             }
         }
         
+        
+        
+      
+    
+        
+//       func CKGetJSON()  {
+//                   let db = Firestore.firestore()
+//               let docRef = db.collection("studies").document("com.Kunal.CardinalKit").collection("users").document("GdKC73SAz6MHL7DrVeve1UMcA902").collection("surveys")
+//
+//                   docRef.getDocuments { (querySnapshot, err) in
+//                        if let err = err {
+//                                  print("Error getting documents: \(err)")
+//                              } else {
+//                                  for document in querySnapshot!.documents {
+//                                      print("\(document.documentID) => \(document.data())")
+//                                  }
+//                              }
+//                   }
+//
+//           }
         /**
          Given a file, use the Firebase SDK to store it in Google Storage.
         */
@@ -854,9 +1252,15 @@ struct TaskVC: UIViewControllerRepresentable {
             }
         }
 
+        
+       
+        
+        
     }
     
 }
+
+
 
 
 struct WithdrawalVC: UIViewControllerRepresentable {
