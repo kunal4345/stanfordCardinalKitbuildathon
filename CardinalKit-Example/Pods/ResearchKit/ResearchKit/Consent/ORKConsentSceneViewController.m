@@ -83,6 +83,7 @@
 
 static NSString *localizedLearnMoreForType(ORKConsentSectionType sectionType) {
     NSString *str = ORKLocalizedString(@"BUTTON_LEARN_MORE", nil);
+    str = @"";
     switch (sectionType) {
         case ORKConsentSectionTypeOverview:
             str = ORKLocalizedString(@"LEARN_MORE_WELCOME", nil);

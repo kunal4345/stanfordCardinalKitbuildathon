@@ -99,10 +99,31 @@ struct OnboardingVC: UIViewControllerRepresentable {
 
         let config = CKPropertyReader(file: "CKConfiguration")
             
+        
+        /* **************************************************************
+        * Step (0): User Eligibility
+        **************************************************************/
+        
+        
+//        let eligibilityTest = ORKInstructionStep(identifier: "eligibilityTest")
+//               eligibilityTest.title = "Eligibility Test"
+//               eligibilityTest.text = "Please answer these  questions honestly to make sure "
+//
+//
+//               let booleanAnswer1 = ORKBooleanAnswerFormat(yesString: "Yes", noString: "No")
+//               let textStep1 = ORKQuestionStep(identifier: "TextStep1", title: "Eligibility Test", question: "Are you 18 years old or older?", answer: booleanAnswer1)
+//
+        let eligProcessStep = makeEligibilityStep()
+
+        
         /* **************************************************************
         *  STEP (1): get user consent
         **************************************************************/
         // use the `ORKVisualConsentStep` from ResearchKit
+        
+        //Ste
+        
+        
         let consentDocument = ConsentDocument()
         let consentStep = ORKVisualConsentStep(identifier: "VisualConsentStep", document: consentDocument)
         
@@ -202,7 +223,7 @@ struct OnboardingVC: UIViewControllerRepresentable {
         **************************************************************/
         
         // given intro steps that the user should review and consent to
-        let introSteps = [consentStep, reviewConsentStep]
+        let introSteps = [eligProcessStep,consentStep, reviewConsentStep]
         
         // and steps regarding login / security
         //let emailVerificationSteps = [registerStep, loginStep, passcodeStep, healthDataStep, completionStep] //hjsong
@@ -236,6 +257,64 @@ struct OnboardingVC: UIViewControllerRepresentable {
 
         }
 
+    //Eligibility test function
+    
+    func makeEligibilityStep() -> ORKNavigablePageStep {
+        let eligQues = "Please verify the following:\n\n\u{2022} You are at least 18 years old\n\n\u{2022} You reside in the US \n\n\u{2022} You can read and understand English in order to provide informed consent and follow this app's instructions"
+        let eligTextChoices = [
+            ORKTextChoice(text: "Yes, these are ALL true", value: 0 as NSCoding & NSCopying & NSObjectProtocol),
+            ORKTextChoice(text: "No", value: 1 as NSCoding & NSCopying & NSObjectProtocol)
+        ]
+        let eligAnswerFormat = ORKAnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: eligTextChoices)
+        let eligStep = ORKQuestionStep(identifier: "EligibilityQuestionStep",
+                                       title: "Eligiblity",
+                                       question: "Eligiblity",
+                                       answer: eligAnswerFormat)
+        eligStep.text = eligQues
+        eligStep.isOptional = false
+        
+        // change both success and failure to be of type completion subclasssed
+        let eligFailureStep = ORKInstructionStep(identifier:"EligibilityFailureStep")
+        eligFailureStep.title = "Sorry"
+        eligFailureStep.text = "You aren't eligible for this study."
+        //eligFailureStep.image = UIImage.init(named: "13_RiskToPrivacy")
+        
+        let eligQues2 = "Please verify the following:\n\n\u{2022} You DO NOT have any serious chronic medical issues that may limit your ability to participate in physical therapy and home exercise or make participation in physical therapy and home exercise medically inadvisable. This includes cancer, severe arthritis, neuropathy or other neuromuscular disease, angina, cardiovascular disease, pulmonary disease, stroke or other neurological disorder, or peripheral vascular disease\n\n\u{2022} You ARE NOT pregnant, incarcerated, or decisionally impaired"
+        
+        let eligTextChoices2 = [
+            ORKTextChoice(text: "Yes, these are ALL true", value: 0 as NSCoding & NSCopying & NSObjectProtocol),
+            ORKTextChoice(text: "No", value: 1 as NSCoding & NSCopying & NSObjectProtocol)
+        ]
+        let eligAnswerFormat2 = ORKAnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: eligTextChoices2)
+        let eligStep2 = ORKQuestionStep(identifier: "EligibilityQuestionStep2",
+                                        title: "Eligiblity",
+                                        question: "Eligiblity",
+                                        answer: eligAnswerFormat2)
+        eligStep2.text = eligQues2
+        eligStep2.isOptional = false
+        
+        let eligSuccessStep = ORKInstructionStep(identifier:"EligibilitySuccessStep")
+        eligSuccessStep.text = "Great, you're eligible for the study!"
+        eligSuccessStep.detailText = "Let's continue."
+        
+        let resultSelector = ORKResultSelector(stepIdentifier: "EligibilityQuestionStep", resultIdentifier: "EligibilityQuestionStep")
+        let predicate = ORKResultPredicate.predicateForChoiceQuestionResult(with: resultSelector, expectedAnswerValue: 0 as NSCoding & NSCopying & NSObjectProtocol)
+        let eligPredicateRule = ORKPredicateStepNavigationRule(resultPredicatesAndDestinationStepIdentifiers: [(predicate, "EligibilityQuestionStep2")])
+        
+        let resultSelector2 = ORKResultSelector(stepIdentifier: "EligibilityQuestionStep2", resultIdentifier: "EligibilityQuestionStep2")
+        let predicate2 = ORKResultPredicate.predicateForChoiceQuestionResult(with: resultSelector2, expectedAnswerValue: 1 as NSCoding & NSCopying & NSObjectProtocol)
+        let eligPredicateRule2 = ORKPredicateStepNavigationRule(resultPredicatesAndDestinationStepIdentifiers: [(predicate2, "EligibilityFailureStep")])
+        
+        let eligProcessTask = ORKNavigableOrderedTask(identifier: "eligTask", steps: [eligStep, eligFailureStep, eligStep2, eligSuccessStep])
+        eligProcessTask.setNavigationRule(eligPredicateRule, forTriggerStepIdentifier: "EligibilityQuestionStep")
+        eligProcessTask.setNavigationRule(eligPredicateRule2, forTriggerStepIdentifier: "EligibilityQuestionStep2")
+        eligProcessTask.setNavigationRule(ORKDirectStepNavigationRule(destinationStepIdentifier: "EligibilityQuestionStep"),
+                                          forTriggerStepIdentifier: "EligibilityFailureStep")
+        let eligProcessStep = ORKNavigablePageStep(identifier: "eligProcessStep", pageTask: eligProcessTask)
+        eligProcessStep.title = "Eligiblity"
+        return eligProcessStep
+    }
+    
     class Coordinator: NSObject, ORKTaskViewControllerDelegate {
         public func taskViewController(_ taskViewController: ORKTaskViewController, didFinishWith reason: ORKTaskViewControllerFinishReason, error: Error?) {
             switch reason {

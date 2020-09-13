@@ -3,15 +3,15 @@
 <plist version="1.0">
 <dict>
 	<key>Study Title</key>
-	<string>CardinalKit Sample App</string>
+	<string>Spinekeeper</string>
 	<key>Team Name</key>
-	<string>Stanford Department of Medicine</string>
+	<string>Back Track Team</string>
 	<key>Email</key>
-	<string>contact@stanford.edu</string>
+	<string>contact@kshah5@mail.sfsu.edu</string>
 	<key>Phone</key>
-	<string>650-123-4567</string>
+	<string>628-209-9506</string>
 	<key>Copyright</key>
-	<string>Made at Stanford with ❤️</string>
+	<string>Made in Collaboration with Stanford ❤️</string>
 	<key>Website</key>
 	<string>https://cardinalkit.org</string>
 	<key>Tint Color</key>
@@ -68,11 +68,11 @@
 	<key>Consent Form</key>
 	<dict>
 		<key>Overview</key>
-		<string>Welcome to CardinalKit. Vivamus laoreet erat sit amet tincidunt scelerisque. Maecenas odio sapien, molestie eu vulputate sodales, tincidunt at neque. Nunc venenatis velit et ligula dictum, eget accumsan felis consectetur. Donec scelerisque fermentum vestibulum. Nam molestie finibus mauris, id congue lectus ultrices eu. Nunc et odio vitae dui interdum dictum. Proin sagittis leo quam. Proin vulputate massa ac orci pulvinar, eget rhoncus urna congue. Sed ut vehicula tellus, eget scelerisque enim. Cras lobortis diam at faucibus scelerisque. Curabitur pharetra arcu erat, nec tincidunt mi eleifend ut. Nunc suscipit risus vitae consectetur sodales. Aenean vitae lectus odio. Phasellus diam orci, accumsan non elementum at, finibus condimentum mauris. Nullam est enim, rhoncus a rutrum sed, laoreet a magna.</string>
+		<string>This simple walkthrough will explain the research study, the impact it may have on your life and will allow you to provide your consent to participate.</string>
 		<key>Data Gathering</key>
-		<string>Your Data Gathering Section: Vivamus laoreet erat sit amet tincidunt scelerisque. Maecenas odio sapien, molestie eu vulputate sodales, tincidunt at neque. Nunc venenatis velit et ligula dictum, eget accumsan felis consectetur. Donec scelerisque fermentum vestibulum. Nam molestie finibus mauris, id congue lectus ultrices eu. Nunc et odio vitae dui interdum dictum. Proin sagittis leo quam. Proin vulputate massa ac orci pulvinar, eget rhoncus urna congue. Sed ut vehicula tellus, eget scelerisque enim. Cras lobortis diam at faucibus scelerisque. Curabitur pharetra arcu erat, nec tincidunt mi eleifend ut. Nunc suscipit risus vitae consectetur sodales. Aenean vitae lectus odio. Phasellus diam orci, accumsan non elementum at, finibus condimentum mauris. Nullam est enim, rhoncus a rutrum sed, laoreet a magna.</string>
+		<string>Collected data may allow researchers, as well as you, to understand patterns and details about back health.</string>
 		<key>Privacy</key>
-		<string>Your Privacy Section: Vivamus laoreet erat sit amet tincidunt scelerisque. Maecenas odio sapien, molestie eu vulputate sodales, tincidunt at neque. Nunc venenatis velit et ligula dictum, eget accumsan felis consectetur. Donec scelerisque fermentum vestibulum. Nam molestie finibus mauris, id congue lectus ultrices eu. Nunc et odio vitae dui interdum dictum. Proin sagittis leo quam. Proin vulputate massa ac orci pulvinar, eget rhoncus urna congue. Sed ut vehicula tellus, eget scelerisque enim. Cras lobortis diam at faucibus scelerisque. Curabitur pharetra arcu erat, nec tincidunt mi eleifend ut. Nunc suscipit risus vitae consectetur sodales. Aenean vitae lectus odio. Phasellus diam orci, accumsan non elementum at, finibus condimentum mauris. Nullam est enim, rhoncus a rutrum sed, laoreet a magna.</string>
+		<string>Your Privacy Section: Vivamus laoreet erat sit amet tincidunt scelerisque. </string>
 		<key>Data Use</key>
 		<string>Your Data Use Section: Vivamus laoreet erat sit amet tincidunt scelerisque. Maecenas odio sapien, molestie eu vulputate sodales, tincidunt at neque. Nunc venenatis velit et ligula dictum, eget accumsan felis consectetur. Donec scelerisque fermentum vestibulum. Nam molestie finibus mauris, id congue lectus ultrices eu. Nunc et odio vitae dui interdum dictum. Proin sagittis leo quam. Proin vulputate massa ac orci pulvinar, eget rhoncus urna congue. Sed ut vehicula tellus, eget scelerisque enim. Cras lobortis diam at faucibus scelerisque. Curabitur pharetra arcu erat, nec tincidunt mi eleifend ut. Nunc suscipit risus vitae consectetur sodales. Aenean vitae lectus odio. Phasellus diam orci, accumsan non elementum at, finibus condimentum mauris. Nullam est enim, rhoncus a rutrum sed, laoreet a magna.</string>
 		<key>Time Commitment</key>
@@ -88,11 +88,11 @@
 	<array>
 		<dict>
 			<key>Title</key>
-			<string>First Title</string>
+			<string>Health Track App</string>
 			<key>Description</key>
-			<string>Lorem Ipsum is simply dummy text of the printing and typesetting industry</string>
+			<string>Hellloooooooooo</string>
 			<key>Logo</key>
-			<string>😁</string>
+			<string>🏥</string>
 		</dict>
 		<dict>
 			<key>Title</key>
@@ -100,7 +100,7 @@
 			<key>Description</key>
 			<string>Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</string>
 			<key>Logo</key>
-			<string>🦠</string>
+			<string>🏥</string>
 		</dict>
 		<dict>
 			<key>Title</key>
@@ -108,7 +108,7 @@
 			<key>Description</key>
 			<string>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</string>
 			<key>Logo</key>
-			<string>🙉</string>
+			<string>🏥</string>
 		</dict>
 	</array>
 </dict>

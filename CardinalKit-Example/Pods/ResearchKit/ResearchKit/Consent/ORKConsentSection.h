@@ -54,6 +54,7 @@ typedef NS_ENUM(NSInteger, ORKConsentSectionType) {
      This content can inform the user of what to expect during the process,
      and provide general background information on the purpose of the study.
      */
+    
     ORKConsentSectionTypeOverview,
     
     /**
