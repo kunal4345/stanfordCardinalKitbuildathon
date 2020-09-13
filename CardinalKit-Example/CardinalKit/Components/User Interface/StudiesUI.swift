@@ -34,6 +34,13 @@ struct StudiesUI: View {
                     Image("tab_profile").renderingMode(.template)
                     Text("Profile")
                 }
+            
+            LearnView(color: self.color)
+                .tabItem {
+                    Image("tab_learn").renderingMode(.template)
+                    Text("Learn")
+            }
+            
         }.accentColor(self.color)
     }
 }
@@ -121,6 +128,184 @@ struct ActivityView: View {
             }, content: {
                 TaskVC(tasks: self.tasks)
             })
+    }
+}
+
+/* jle added LearnItem for menu options init */
+struct LearnItem: Identifiable {
+    var id = UUID()
+    let image: UIImage
+    var title = ""
+    let page: Int
+    
+    init(learn: LearnTableItem) {
+        self.image = learn.image!
+        self.title = learn.title
+        self.page = learn.page
+    }
+}
+
+/* jle added the LearnView here */
+struct LearnView: View {
+    
+    let color: Color
+    let config = CKPropertyReader(file: "CKConfiguration")
+    var menuOptions = [LearnItem] () // Container for all menu options
+  
+    init(color: Color) {
+        self.color = color
+        
+        let learnTableItems = LearnTableItem.allValues
+        
+        // Populate menuOptions array
+        for menuOption in learnTableItems {
+            self.menuOptions.append(LearnItem(learn: menuOption))
+        }
+    }
+    
+    var body: some View {
+        VStack {
+            Text("Learn")
+                .font(.system(size: 25, weight: .bold))
+                
+            HStack {
+                Image("StanfordMedicine")
+            }
+            VStack {
+                Text("Thanks for participating in")
+                    .foregroundColor(Color.gray)
+                Text("Stanford Spinekeeper")
+            }.padding(8)
+            VStack {
+                ForEach(0 ..< self.menuOptions.count) {
+                    MenuOptionView(icon: self.menuOptions[$0].image, title: self.menuOptions[$0].title, page: self.menuOptions[$0].page)
+                }.border(Color.gray)
+            }
+        }
+    }
+}
+
+/* jle added the template view for a menu option */
+struct MenuOptionView: View {
+    let icon: UIImage
+    var title = ""
+
+    let page: Int
+    @State var showingDetail = false
+    
+    init(icon: UIImage, title: String, page: Int) {
+        self.icon = icon
+        self.title = title
+        self.page = page
+    }
+    
+    
+    var body: some View {
+        HStack{
+            Button(action: {
+                self.showingDetail.toggle()
+            }) {
+               Image(uiImage: self.icon).resizable().frame(width: 32, height: 32)
+               VStack(alignment: .leading) {
+                   Text(self.title).font(.system(size: 18, weight: .semibold, design: .default))
+               }
+            }.sheet(isPresented: $showingDetail) {
+                
+                if(self.page == 1){
+                    AboutView()
+                }
+                else if(self.page == 2){
+                    ParticipateView()
+                }
+                else if (self.page == 3){
+                    RoleView()
+                }
+                else if(self.page == 4) {
+                    PainView()
+                }
+                else if(self.page == 5) {
+                    VideosView()
+                }
+            }
+        }
+    }
+}
+
+struct AboutView: View{
+    var body: some View {
+        ScrollView {
+            VStack {
+                Spacer()
+                Text("Welcome to the Stanford SpineKeeper Study!")
+                Spacer()
+                Text("We are asking you to join in a global study of spine health.Through your phone (or wearable band or smartwatch), we make it easy to \"donate\" data about your physical activity and sleep, and assess your fitness and risk factors, to better understand how to have a healthy back.")
+                Spacer()
+                Text("Being active every day has shown to help reduce back pain, and now we can measure activity in much more detail with smartphones and wearable devices. With your help, we can better our understanding of back pain and spine health. Combining your data with friends, family, and many others, you can help us determine how to keep our backs healthy over a long life.")
+            }.padding(16)
+        }
+    }
+}
+
+struct ParticipateView: View{
+    var body: some View {
+        ScrollView {
+            VStack {
+                Text("All adults living in the United States are eligible. This study works most optimally with iPhone models 5s or higher, as these have special motion sensors built in that do not drain your battery. Finally, you need to be able to read and understand English. Versions in other languages and for more countries outside of the U.S. will be available in the future.")
+            }.padding(16)
+        }
+    }
+}
+
+struct RoleView: View{
+    var body: some View {
+        ScrollView {
+            VStack {
+                Text("If you provide consent, you will be asked to allow the Stanford Spine Research app to collect health and activity data from your phone or wearable device, plus answer survey questions about any history of back pain disease and risk factors.")
+                Spacer()
+                Text("The app will ask you to complete a number of activities and surveys, and will also passively collect activity data. After the first day will take you less than 5 minutes to complete daily tasks. The Stanford Spine Research app will provide you feedback about how your activity and pain compare to others. You can continue to use the app for activity monitoring and tips for back pain exercises to try. The Stanford Spine Research app will also provide educational links to learn more about any of your data. You may also be asked to try different ways to help you improve your activity and back health.")
+            }.padding(16)
+        }
+    }
+}
+
+struct PainView: View{
+    var body: some View {
+        ScrollView{
+            VStack{
+                Text("Key points about back pain:")
+                Spacer()
+                Text("\u{2022} Most back pain will go away within a few days or weeks.")
+                Text("\u{2022} Back pain can occur anywhere in the spine, but is most common in the lower back or lumbar spine.")
+                Text("\u{2022} Most back pain is not due to a serious illness.")
+                Text("\u{2022} Back pain can be due to muscle strains, disc issues, trauma, arthritis, bone disease, aging and other causes.")
+                Text("\u{2022} Many people who have back pain will have another episode of back pain within 2 years.")
+                Text("\u{2022} Bedrest for too long is bad for your back pain - stay active!")
+                //TODO: Retrieve links to these pages
+            }.padding(16)
+            VStack{
+                Spacer()
+                Text("Back Pain Information").foregroundColor(Color.blue)
+                Text("Back Pain Coping Strategies").foregroundColor(Color.blue)
+            }
+        }
+    }
+}
+
+struct VideosView: View{
+    var body: some View {
+        ScrollView {
+            VStack {
+                Text("Regular Exercises").border(Color.gray)
+                Text("Smoking").border(Color.gray)
+                Text("Maintaining a Healthy Weight").border(Color.gray)
+                Text("Core Strength").border(Color.gray)
+                Text("Body Mechanics").border(Color.gray)
+                Text("Posture Tips").border(Color.gray)
+                Text("Reduce Stress").border(Color.gray)
+                Text("Strong Bones").border(Color.gray)
+                Text("Weekend Warriors").border(Color.gray)
+            }.padding(16)
+        }
     }
 }
 
