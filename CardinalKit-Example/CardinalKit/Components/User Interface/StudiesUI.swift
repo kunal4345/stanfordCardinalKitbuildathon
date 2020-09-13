@@ -28,17 +28,24 @@ struct StudiesUI: View {
                     Image("tab_activities").renderingMode(.template)
                     Text("Activities")
             }
+            
+            InsightView(color: self.color)
+                .tabItem{
+                    Image("tab_insight").renderingMode(.template)
+                    Text("Insight")
+            }
 
-            ProfileView(color: self.color)
-                .tabItem {
-                    Image("tab_profile").renderingMode(.template)
-                    Text("Profile")
-                }
             
             LearnView(color: self.color)
                 .tabItem {
                     Image("tab_learn").renderingMode(.template)
                     Text("Learn")
+            }
+            
+            ProfileView(color: self.color)
+            .tabItem {
+                Image("tab_profile").renderingMode(.template)
+                Text("Profile")
             }
             
         }.accentColor(self.color)
@@ -310,6 +317,13 @@ struct VideosView: View{
 }
 
 
+struct InsightView: View {
+    var body: some View {
+        VStack {
+            Text("This is the Insight Page")
+        }
+    }
+}
 
 struct WithdrawView: View {
     let color: Color
