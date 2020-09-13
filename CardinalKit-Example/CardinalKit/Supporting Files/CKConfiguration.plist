@@ -68,21 +68,25 @@
 	<key>Consent Form</key>
 	<dict>
 		<key>Overview</key>
-		<string>This simple walkthrough will explain the research study, the impact it may have on your life and will allow you to provide your consent to participate.</string>
+		<string>This simple walkthrough will explain the research study, the impact it may have on your life and will allow you to provide your consent to participate.This month long study will ask you to perform tasks and respond to surveys on a daily basis.</string>
 		<key>Data Gathering</key>
-		<string>Collected data may allow researchers, as well as you, to understand patterns and details about back health.</string>
+		<string>his study will also gather sensor and health data from your iOS devices with your permission. Collected data may allow researchers, as well as you, to understand patterns and details about back health.</string>
 		<key>Privacy</key>
-		<string>Your Privacy Section: Vivamus laoreet erat sit amet tincidunt scelerisque. </string>
+		<string>Your data will be encrypted and sent to a secure database, with your name replaced by a random code.</string>
 		<key>Data Use</key>
-		<string>Your Data Use Section: Vivamus laoreet erat sit amet tincidunt scelerisque. Maecenas odio sapien, molestie eu vulputate sodales, tincidunt at neque. Nunc venenatis velit et ligula dictum, eget accumsan felis consectetur. Donec scelerisque fermentum vestibulum. Nam molestie finibus mauris, id congue lectus ultrices eu. Nunc et odio vitae dui interdum dictum. Proin sagittis leo quam. Proin vulputate massa ac orci pulvinar, eget rhoncus urna congue. Sed ut vehicula tellus, eget scelerisque enim. Cras lobortis diam at faucibus scelerisque. Curabitur pharetra arcu erat, nec tincidunt mi eleifend ut. Nunc suscipit risus vitae consectetur sodales. Aenean vitae lectus odio. Phasellus diam orci, accumsan non elementum at, finibus condimentum mauris. Nullam est enim, rhoncus a rutrum sed, laoreet a magna.</string>
+		<string>Your coded study data will be used for research by Stanford and may be shared with other researchers approved by Stanford.</string>
 		<key>Time Commitment</key>
-		<string>Your Time Commitment Section: Vivamus laoreet erat sit amet tincidunt scelerisque. Maecenas odio sapien, molestie eu vulputate sodales, tincidunt at neque. Nunc venenatis velit et ligula dictum, eget accumsan felis consectetur. Donec scelerisque fermentum vestibulum. Nam molestie finibus mauris, id congue lectus ultrices eu. Nunc et odio vitae dui interdum dictum. Proin sagittis leo quam. Proin vulputate massa ac orci pulvinar, eget rhoncus urna congue. Sed ut vehicula tellus, eget scelerisque enim. Cras lobortis diam at faucibus scelerisque. Curabitur pharetra arcu erat, nec tincidunt mi eleifend ut. Nunc suscipit risus vitae consectetur sodales. Aenean vitae lectus odio. Phasellus diam orci, accumsan non elementum at, finibus condimentum mauris. Nullam est enim, rhoncus a rutrum sed, laoreet a magna.</string>
+		<string>Your participation in this study will take a few minutes per day for one month. You can continue to use the app afterwards to further learn about and improve your back health.</string>
 		<key>Study Survey</key>
-		<string>Your Study Survey Section: Vivamus laoreet erat sit amet tincidunt scelerisque. Maecenas odio sapien, molestie eu vulputate sodales, tincidunt at neque. Nunc venenatis velit et ligula dictum, eget accumsan felis consectetur. Donec scelerisque fermentum vestibulum. Nam molestie finibus mauris, id congue lectus ultrices eu. Nunc et odio vitae dui interdum dictum. Proin sagittis leo quam. Proin vulputate massa ac orci pulvinar, eget rhoncus urna congue. Sed ut vehicula tellus, eget scelerisque enim. Cras lobortis diam at faucibus scelerisque. Curabitur pharetra arcu erat, nec tincidunt mi eleifend ut. Nunc suscipit risus vitae consectetur sodales. Aenean vitae lectus odio. Phasellus diam orci, accumsan non elementum at, finibus condimentum mauris. Nullam est enim, rhoncus a rutrum sed, laoreet a magna.</string>
+		<string>Some of the tasks in this study will require you to answer survey questions about your health and lifestyle.</string>
 		<key>Study Tasks</key>
-		<string>Your Study Tasks Section: Vivamus laoreet erat sit amet tincidunt scelerisque. Maecenas odio sapien, molestie eu vulputate sodales, tincidunt at neque. Nunc venenatis velit et ligula dictum, eget accumsan felis consectetur. Donec scelerisque fermentum vestibulum. Nam molestie finibus mauris, id congue lectus ultrices eu. Nunc et odio vitae dui interdum dictum. Proin sagittis leo quam. Proin vulputate massa ac orci pulvinar, eget rhoncus urna congue. Sed ut vehicula tellus, eget scelerisque enim. Cras lobortis diam at faucibus scelerisque. Curabitur pharetra arcu erat, nec tincidunt mi eleifend ut. Nunc suscipit risus vitae consectetur sodales. Aenean vitae lectus odio. Phasellus diam orci, accumsan non elementum at, finibus condimentum mauris. Nullam est enim, rhoncus a rutrum sed, laoreet a magna.</string>
+		<string>We will ask you to complete active tasks that may require physical activity.</string>
 		<key>Withdrawing</key>
-		<string>Your Withdrawing Section: Vivamus laoreet erat sit amet tincidunt scelerisque. Maecenas odio sapien, molestie eu vulputate sodales, tincidunt at neque. Nunc venenatis velit et ligula dictum, eget accumsan felis consectetur. Donec scelerisque fermentum vestibulum. Nam molestie finibus mauris, id congue lectus ultrices eu. Nunc et odio vitae dui interdum dictum. Proin sagittis leo quam. Proin vulputate massa ac orci pulvinar, eget rhoncus urna congue. Sed ut vehicula tellus, eget scelerisque enim. Cras lobortis diam at faucibus scelerisque. Curabitur pharetra arcu erat, nec tincidunt mi eleifend ut. Nunc suscipit risus vitae consectetur sodales. Aenean vitae lectus odio. Phasellus diam orci, accumsan non elementum at, finibus condimentum mauris. Nullam est enim, rhoncus a rutrum sed, laoreet a magna.</string>
+		<string>You may withdraw your consent and discontinue participation at any time.</string>
+		<key>Potential Benefits</key>
+		<string>The information collected by this study may help you better understand and monitor your back health.</string>
+		<key>Issues to Consider</key>
+		<string>If some questions make you uncomfortable, you can skip them. Participating in this study may change how you feel. You may feel more tired, sad, energized, or happy.</string>
 	</dict>
 	<key>Onboarding</key>
 	<array>
