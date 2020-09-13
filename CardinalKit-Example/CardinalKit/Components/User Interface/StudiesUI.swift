@@ -348,14 +348,16 @@ var days : [String] = ["M","T","W","T","F","S"]
             VStack {
                 HStack {
                     // TODO: Add row of numbers and circles
-                    Text("13")
-                    Text("14")
-                    Text("15")
-                    Text("16")
-                    Text("17")
-                    Text("18")
-                    Text("19")
-                }.border(Color.gray).frame(width: UIScreen.main.bounds.size.width)
+                    Text("13  ").font(.headline)
+                    Text("14  ").font(.headline)
+                    Text("15  ").font(.headline)
+                    Text("16  ").font(.headline)
+                    Text("17  ").font(.headline)
+                    Text("18  ").font(.headline)
+                    Text("19  ").font(.headline)
+                }//.border(Color.gray).frame(width: UIScreen.main.bounds.size.width)
+                Spacer()
+                Spacer()
                 Text("Sep 13, 2020")
                 
     // Card #1
@@ -376,10 +378,10 @@ var days : [String] = ["M","T","W","T","F","S"]
                                              // 5
                                         HStack(alignment: .bottom){
                                              Rectangle()
-                                               .fill(Color.green)
+                                                .fill(Color.red)
                                                 .frame(width: 10, height: CGFloat(healthscale1) )
                                                 Rectangle()
-                                                  .fill(Color.green)
+                                                  .fill(Color.red)
                                                     .frame(width: 10, height: CGFloat(healthscale2))
                                             
                                         }
@@ -396,7 +398,7 @@ var days : [String] = ["M","T","W","T","F","S"]
                                       Spacer()
                                       // 5
                                       Rectangle()
-                                        .fill(Color.green)
+                                        .fill(Color.red)
                                         .frame(width: 10, height: 01)
                                       // 6
                                         Text(self.days[temp])
@@ -446,9 +448,10 @@ var days : [String] = ["M","T","W","T","F","S"]
 //                                           }
 //                                       }
                        Spacer()
-                   }
+                       Spacer()
+                       Spacer()                   }
                }.frame(width: 250, height: 250, alignment: .center)
-               .border(Color.gray)
+               .border(Color.red)
                .padding(8)
     
                 //card 2
@@ -457,7 +460,7 @@ var days : [String] = ["M","T","W","T","F","S"]
                         VStack {
                             Text("Six Minute Walk").font(.headline)
                             Text("Distance (in meters)").font(.subheadline)
-                        }.padding(2)
+                        }.padding(15)
                         
                         HStack {
                            // 2
@@ -468,8 +471,8 @@ var days : [String] = ["M","T","W","T","F","S"]
                                       // 5
                                  HStack(alignment: .bottom){
                                       Rectangle()
-                                        .fill(Color.green)
-                                         .frame(width: 10, height: 30)
+                                        .fill(Color.red)
+                                         .frame(width: 10, height: 1)
                                          
                                      
                                  }
@@ -486,7 +489,7 @@ var days : [String] = ["M","T","W","T","F","S"]
                                Spacer()
                                // 5
                                Rectangle()
-                                 .fill(Color.green)
+                                 .fill(Color.red)
                                  .frame(width: 10, height: 01)
                                // 6
                                  Text(self.days[temp])
@@ -530,9 +533,10 @@ var days : [String] = ["M","T","W","T","F","S"]
 //                            }
 //                        }
                         Spacer()
-                    }
+                        Spacer()
+                        Spacer()                    }
                 }.frame(width: 250, height: 250, alignment: .center)
-                .border(Color.gray)
+                .border(Color.red)
                 .padding(8)
                 
                 // Card #3
@@ -541,7 +545,7 @@ var days : [String] = ["M","T","W","T","F","S"]
                         VStack {
                             Text("Breathe").font(.headline)
                             Text("# of Times Completed").font(.subheadline)
-                        }.padding(2)
+                        }.padding(15)
                         
                         HStack {
                             VStack {
@@ -549,8 +553,8 @@ var days : [String] = ["M","T","W","T","F","S"]
                                                                                          // 5
                                     HStack(alignment: .bottom){
                                          Rectangle()
-                                           .fill(Color.green)
-                                            .frame(width: 10, height: 50)
+                                           .fill(Color.red)
+                                            .frame(width: 10, height: 1)
                                     }
                                          // 6
                                            Text("S")
@@ -564,7 +568,7 @@ var days : [String] = ["M","T","W","T","F","S"]
                                 Spacer()
                                   // 5
                                 Rectangle()
-                                    .fill(Color.green)
+                                    .fill(Color.red)
                                     .frame(width: 10, height: 01)
                                   // 6
                                     Text(self.days[temp])
@@ -608,10 +612,12 @@ var days : [String] = ["M","T","W","T","F","S"]
 //                                Text("-")
 //                            }
 //                        }
-//                        Spacer()
+                        Spacer()
+                        Spacer()
+                        Spacer()
                     }
                 }.frame(width: 250, height: 250, alignment: .center)
-                .border(Color.gray)
+                .border(Color.red)
                 .padding(8)
                 
                
