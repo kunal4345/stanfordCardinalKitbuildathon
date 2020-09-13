@@ -31,7 +31,7 @@ struct StudiesUI: View {
             
             InsightView(color: self.color)
                 .tabItem{
-                    Image("tab_insight").renderingMode(.template)
+                    Image("tab_dashboard").renderingMode(.template)
                     Text("Insight")
             }
 
@@ -317,7 +317,14 @@ struct VideosView: View{
 }
 
 
+// TODO: Complete Insight Page
 struct InsightView: View {
+    let color: Color
+    
+    init(color: Color) {
+        self.color = color
+    }
+    
     var body: some View {
         VStack {
             Text("This is the Insight Page")
