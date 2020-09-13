@@ -345,16 +345,9 @@ var days : [String] = ["M","T","W","T","F","S"]
   
     public var body: some View {
         ScrollView {
-
-           
-
-            
             VStack {
-                
                 HStack {
                     // TODO: Add row of numbers and circles
-                    
-                    
                     Text("13")
                     Text("14")
                     Text("15")
@@ -365,53 +358,53 @@ var days : [String] = ["M","T","W","T","F","S"]
                 }.border(Color.gray).frame(width: UIScreen.main.bounds.size.width)
                 Text("Sep 13, 2020")
                 
-                // Card #1
-                VStack{
-                                   VStack {
-                                       VStack {
-                                           Text("Back Pain").font(.headline)
-                                           Text("Level of Pain").font(.subheadline)
-                                       }.padding(15)
+    // Card #1
+    VStack{
+                   VStack {
+                       VStack {
+                           Text("Back Pain").font(.headline)
+                           Text("Level of Pain").font(.subheadline)
+                       }.padding(15)
 //                                       Spacer()
+                    
+                                HStack {
+                                  // 2
                                     
-                                                HStack {
-                                                  // 2
-                                                    
-                                                    VStack {
-                                                             // 4
-                                                             Spacer()
-                                                             // 5
-                                                        HStack(alignment: .bottom){
-                                                             Rectangle()
-                                                               .fill(Color.green)
-                                                                .frame(width: 10, height: CGFloat(healthscale1) )
-                                                                Rectangle()
-                                                                  .fill(Color.green)
-                                                                    .frame(width: 10, height: CGFloat(healthscale2))
-                                                            
-                                                        }
-                                                             // 6
-                                                               Text("S")
-                                                               .font(.footnote)
-                                                               .frame(height: 20)
-                                                        
-                                                           }
-                                                  ForEach(0..<6) { temp in
-                                                    // 3
-                                                    VStack {
-                                                      // 4
-                                                      Spacer()
-                                                      // 5
-                                                      Rectangle()
-                                                        .fill(Color.green)
-                                                        .frame(width: 10, height: 01)
-                                                      // 6
-                                                        Text(self.days[temp])
-                                                        .font(.footnote)
-                                                        .frame(height: 20)
-                                                    }
-                                                  }
+                                    VStack {
+                                             // 4
+                                             Spacer()
+                                             // 5
+                                        HStack(alignment: .bottom){
+                                             Rectangle()
+                                               .fill(Color.green)
+                                                .frame(width: 10, height: CGFloat(healthscale1) )
+                                                Rectangle()
+                                                  .fill(Color.green)
+                                                    .frame(width: 10, height: CGFloat(healthscale2))
+                                            
+                                        }
+                                             // 6
+                                               Text("S")
+                                               .font(.footnote)
+                                               .frame(height: 20)
+                                        
+                                           }
+                                  ForEach(0..<6) { temp in
+                                    // 3
+                                    VStack {
+                                      // 4
+                                      Spacer()
+                                      // 5
+                                      Rectangle()
+                                        .fill(Color.green)
+                                        .frame(width: 10, height: 01)
+                                      // 6
+                                        Text(self.days[temp])
+                                        .font(.footnote)
+                                        .frame(height: 20)
                                     }
+                                  }
+                    }
 
 //                                       HStack {
 //                                           VStack {
@@ -452,12 +445,12 @@ var days : [String] = ["M","T","W","T","F","S"]
 //                                               Text("-")
 //                                           }
 //                                       }
-                                       Spacer()
-                                   }
-                               }.frame(width: 250, height: 250, alignment: .center)
-                               .border(Color.gray)
-                               .padding(8)
-                
+                       Spacer()
+                   }
+               }.frame(width: 250, height: 250, alignment: .center)
+               .border(Color.gray)
+               .padding(8)
+    
                 //card 2
                 VStack{
                     VStack {
@@ -467,41 +460,41 @@ var days : [String] = ["M","T","W","T","F","S"]
                         }.padding(2)
                         
                         HStack {
-                                                       // 2
-                                                         
-                                                         VStack {
-                                                                  // 4
-                                                                  Spacer()
-                                                                  // 5
-                                                             HStack(alignment: .bottom){
-                                                                  Rectangle()
-                                                                    .fill(Color.green)
-                                                                     .frame(width: 10, height: 30)
-                                                                     
-                                                                 
-                                                             }
-                                                                  // 6
-                                                                    Text("S")
-                                                                    .font(.footnote)
-                                                                    .frame(height: 20)
-                                                             
-                                                                }
-                                                       ForEach(0..<6) { temp in
-                                                         // 3
-                                                         VStack {
-                                                           // 4
-                                                           Spacer()
-                                                           // 5
-                                                           Rectangle()
-                                                             .fill(Color.green)
-                                                             .frame(width: 10, height: 01)
-                                                           // 6
-                                                             Text(self.days[temp])
-                                                             .font(.footnote)
-                                                             .frame(height: 20)
-                                                         }
-                                                       }
-                                         }
+                           // 2
+                             
+                             VStack {
+                                      // 4
+                                      Spacer()
+                                      // 5
+                                 HStack(alignment: .bottom){
+                                      Rectangle()
+                                        .fill(Color.green)
+                                         .frame(width: 10, height: 30)
+                                         
+                                     
+                                 }
+                                      // 6
+                                        Text("S")
+                                        .font(.footnote)
+                                        .frame(height: 20)
+                                 
+                                    }
+                           ForEach(0..<6) { temp in
+                             // 3
+                             VStack {
+                               // 4
+                               Spacer()
+                               // 5
+                               Rectangle()
+                                 .fill(Color.green)
+                                 .frame(width: 10, height: 01)
+                               // 6
+                                 Text(self.days[temp])
+                                 .font(.footnote)
+                                 .frame(height: 20)
+                             }
+                           }
+             }
 
                         
                         
@@ -551,41 +544,35 @@ var days : [String] = ["M","T","W","T","F","S"]
                         }.padding(2)
                         
                         HStack {
-                                                                              // 2
-                                                                                
-                                                                                VStack {
-                                                                                         // 4
-                                                                                         Spacer()
+                            VStack {
+                                Spacer()
                                                                                          // 5
-                                                                                    HStack(alignment: .bottom){
-                                                                                         Rectangle()
-                                                                                           .fill(Color.green)
-                                                                                            .frame(width: 10, height: 50)
-                                                                                            
-                                                                                        
-                                                                                    }
-                                                                                         // 6
-                                                                                           Text("S")
-                                                                                           .font(.footnote)
-                                                                                           .frame(height: 20)
-                                                                                    
-                                                                                       }
-                                                                              ForEach(0..<6) { temp in
-                                                                                // 3
-                                                                                VStack {
-                                                                                  // 4
-                                                                                  Spacer()
-                                                                                  // 5
-                                                                                  Rectangle()
-                                                                                    .fill(Color.green)
-                                                                                    .frame(width: 10, height: 01)
-                                                                                  // 6
-                                                                                    Text(self.days[temp])
-                                                                                    .font(.footnote)
-                                                                                    .frame(height: 20)
-                                                                                }
-                                                                              }
-                                                                }
+                                    HStack(alignment: .bottom){
+                                         Rectangle()
+                                           .fill(Color.green)
+                                            .frame(width: 10, height: 50)
+                                    }
+                                         // 6
+                                           Text("S")
+                                           .font(.footnote)
+                                           .frame(height: 20)
+                                    }
+                              ForEach(0..<6) { temp in
+                                // 3
+                                VStack {
+                                  // 4
+                                Spacer()
+                                  // 5
+                                Rectangle()
+                                    .fill(Color.green)
+                                    .frame(width: 10, height: 01)
+                                  // 6
+                                    Text(self.days[temp])
+                                    .font(.footnote)
+                                    .frame(height: 20)
+                                }
+                              }
+                }
 
                                                
                         
