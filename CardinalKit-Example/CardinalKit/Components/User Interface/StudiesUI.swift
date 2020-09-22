@@ -1,10 +1,25 @@
-import SwiftUI
+
 import MessageUI
 import CardinalKit
 import ResearchKit
 import Firebase
+import CareKit
+import CareKitUI
+import CareKitStore
+import SwiftUI
+
+
+
 public var healthscale1 = 0
 public var healthscale2 = 0
+
+var synchronizedStoreManager: OCKSynchronizedStoreManager = {
+    let store = OCKStore(name: "my-store")
+    store.populateSampleData()
+    let manager = OCKSynchronizedStoreManager(wrapping: store)
+    return manager
+}()
+
 
 struct StudiesUI: View {
     
@@ -53,7 +68,9 @@ struct StudyItem: Identifiable {
     var description = ""
     let task: ORKOrderedTask
     
+    
     init(study: StudyTableItem) {
+
         self.image = study.image!
         self.title = study.title
         self.description = study.subtitle
@@ -61,13 +78,21 @@ struct StudyItem: Identifiable {
     }
 }
 
+
+
 struct ActivitiesView: View {
     let color: Color
     let config = CKPropertyReader(file: "CKConfiguration")
     var date = ""
     var activities: [StudyItem] = []
+    //var activities_care : [StudyCareItem] = []
+    
+    var taskView = OCKInstructionsTaskView()
+    var nauseaTask : OCKAnyTask?
+    
     
     init(color: Color) {
+        
         self.color = color
         
         let date = Date()
@@ -76,13 +101,17 @@ struct ActivitiesView: View {
         
         self.date = formatter.string(from: date)
         
-        let studyTableItems = StudyTableItem.allValues
-        for study in studyTableItems {
-            self.activities.append(StudyItem(study: study))
+        let identifiers = ["doxylamine", "nausea",  "survey"]
+        var query = OCKTaskQuery(for: Date())
+        query.ids = identifiers
+        query.excludesTasksWithNoEvents = true
+
+
         }
-    }
-    
+
+     
     var body: some View {
+        //MySimpleTaskView()
         VStack {
             Text(config.read(query: "Study Title")).font(.system(size: 25, weight:.bold)).foregroundColor(self.color)
             Text(config.read(query: "Team Name")).font(.system(size: 15, weight:.light))
@@ -90,15 +119,26 @@ struct ActivitiesView: View {
             List {
                 Section(header: Text("Current Activities")) {
                     
-                    ForEach(0 ..< self.activities.count) {
-                        ActivityView(icon: self.activities[$0].image, title: self.activities[$0].title, description: self.activities[$0].description, tasks: self.activities[$0].task)
-                    }
+
+                    CareKit.SimpleTaskView (
+                        taskID: "doxylamine", eventQuery: OCKEventQuery(for:Date()), storeManager: synchronizedStoreManager
+                        )
                     
+                    CareKit.SimpleTaskView (
+                        taskID: "survey",  eventQuery: OCKEventQuery(for:Date()), storeManager: synchronizedStoreManager
+                        )
+                    CareKit.InstructionsTaskView (
+                        taskID: "nausea", eventQuery: OCKEventQuery(for:Date()), storeManager: synchronizedStoreManager
+                        )
+                    
+          
                 }.listRowBackground(Color.white)
             }.listStyle(GroupedListStyle())
         }
-    }
 }
+}
+
+
 
 struct ActivityView: View {
     let icon: UIImage
@@ -315,7 +355,6 @@ struct VideosView: View{
 
     let db = Firestore.firestore()
 
-
 public struct InsightView: View {
     let color: Color
     
@@ -324,25 +363,14 @@ public struct InsightView: View {
     }
 
    
-//    db.collection("studies").getDocuments() { (querySnapshot, err) in
-//        if let err = err {
-//            print("Error getting documents: \(err)")
-//        } else {
-//            for document in querySnapshot!.documents {
-//                print("\(document.documentID) => \(document.data())")
-//            }
-//        }
-//    }
-//
+
 var days : [String] = ["M","T","W","T","F","S"]
-//    let inthealthscale1 = Int(healthscale1)
-//    let inthealthscale2 = Int(healthscale2)
-//    let height = (inthealthscale1 * 10)
-//    let height1 = (inthealthscale2 * 10)
+
     var cgfloat = CGFloat(healthscale1)
     var cgfloat1 = CGFloat(healthscale2)
 
-  
+    
+    
     public var body: some View {
         ScrollView {
             VStack {
@@ -408,45 +436,7 @@ var days : [String] = ["M","T","W","T","F","S"]
                                   }
                     }
 
-//                                       HStack {
-//                                           VStack {
-//                                               Text("S")
-//                                               Text(healthscale1)
-//                                               Text(healthscale2)
-//
-//                                           }
-//                                           VStack {
-//                                               Text("M")
-//                                               Text("-")
-//                                               Text("-")
-//
-//                                           }
-//                                           VStack {
-//                                               Text("T")
-//                                               Text("-")
-//                                               Text("-")
-//                                           }
-//                                           VStack {
-//                                               Text("W")
-//                                               Text("-")
-//                                               Text("-")
-//                                           }
-//                                           VStack {
-//                                               Text("T")
-//                                               Text("-")
-//                                               Text("-")
-//                                           }
-//                                           VStack {
-//                                               Text("F")
-//                                               Text("-")
-//                                               Text("-")
-//                                           }
-//                                           VStack {
-//                                               Text("S")
-//                                               Text("-")
-//                                               Text("-")
-//                                           }
-//                                       }
+
                        Spacer()
                        Spacer()
                        Spacer()                   }
@@ -500,38 +490,7 @@ var days : [String] = ["M","T","W","T","F","S"]
              }
 
                         
-                        
-//                        Spacer()
-//                        HStack {
-//                            VStack {
-//                                Text("S")
-//                                Text("8")
-//                            }
-//                            VStack {
-//                                Text("M")
-//                                Text("-")
-//                            }
-//                            VStack {
-//                                Text("T")
-//                                Text("-")
-//                            }
-//                            VStack {
-//                                Text("W")
-//                                Text("-")
-//                            }
-//                            VStack {
-//                                Text("T")
-//                                Text("-")
-//                            }
-//                            VStack {
-//                                Text("F")
-//                                Text("-")
-//                            }
-//                            VStack {
-//                                Text("S")
-//                                Text("-")
-//                            }
-//                        }
+
                         Spacer()
                         Spacer()
                         Spacer()                    }
@@ -580,38 +539,6 @@ var days : [String] = ["M","T","W","T","F","S"]
 
                                                
                         
-                        
-//                        Spacer()
-//                        HStack {
-//                            VStack {
-//                                Text("S")
-//                                Text("6")
-//                            }
-//                            VStack {
-//                                Text("M")
-//                                Text("-")
-//                            }
-//                            VStack {
-//                                Text("T")
-//                                Text("-")
-//                            }
-//                            VStack {
-//                                Text("W")
-//                                Text("-")
-//                            }
-//                            VStack {
-//                                Text("T")
-//                                Text("-")
-//                            }
-//                            VStack {
-//                                Text("F")
-//                                Text("-")
-//                            }
-//                            VStack {
-//                                Text("S")
-//                                Text("-")
-//                            }
-//                        }
                         Spacer()
                         Spacer()
                         Spacer()
@@ -626,6 +553,8 @@ var days : [String] = ["M","T","W","T","F","S"]
         //.frame(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
     }
 }
+
+
 
 struct WithdrawView: View {
     let color: Color
@@ -952,10 +881,10 @@ struct PasscodeVC: UIViewControllerRepresentable {
             viewController.dismiss(animated: true, completion: nil)
         }
         
-
     }
     
 }
+
 
 struct TaskVC: UIViewControllerRepresentable {
     
@@ -997,9 +926,7 @@ struct TaskVC: UIViewControllerRepresentable {
                do {
                     // (1) convert the result of the ResearchKit task into a JSON dictionary
                     if let json = try CKTaskResultAsJson(taskViewController.result) {
-//                        print("****************************")
-//                        print(json)
-//                        print("=============================")
+
                         let x = String(describing: taskViewController.result.stepResult(forStepIdentifier: "HealthScaleQuestionStep1"))
                         let y = String(describing: taskViewController.result.stepResult(forStepIdentifier: "HealthScaleQuestionStep2"))
                         //print(x)
@@ -1042,32 +969,7 @@ struct TaskVC: UIViewControllerRepresentable {
                         print(healthscale1)
                         print(healthscale2)
                         
-                        
-                       print("##############################")
 
-
-//
-//                       let db = Firestore.firestore()
-//                        db.collection("studies").document("com.number.CardinalKit").collection("users")                                     .document("number")
-//.setData(["number" : healthscale1, "number2" : healthscale2]) { err in
-//                                        if let err = err {
-//                                            print("Error writing document: \(err)")
-//                                        } else {
-//                                            // TODO: better configurable feedback via something like:
-//                                            // https://github.com/Daltron/NotificationBanner
-//                                            print("Document successfully written!")
-//                    //                       print("HEREEEEEEEEE")
-//                    //                        print(dataPayload.compactMapValues { $0 })
-//                    //                        self.CKGetJSON()
-//
-//                                        }
-//                                    }
-//                        print("****************************")
-//
-//                        print(taskViewController.result.stepResult(forStepIdentifier: "HealthScaleQuestionStep2") )
-
-//                        print(json)
-                        print("****************************")
 
                         // (2) send using Firebase
                         try CKSendJSON(json)
@@ -1151,9 +1053,7 @@ struct TaskVC: UIViewControllerRepresentable {
                         // TODO: better configurable feedback via something like:
                         // https://github.com/Daltron/NotificationBanner
                         print("Document successfully written!")
-//                       print("HEREEEEEEEEE")
-//                        print(dataPayload.compactMapValues { $0 })
-//                        self.CKGetJSON()
+
 
                     }
                 }
@@ -1162,25 +1062,7 @@ struct TaskVC: UIViewControllerRepresentable {
         }
         
         
-        
-      
-    
-        
-//       func CKGetJSON()  {
-//                   let db = Firestore.firestore()
-//               let docRef = db.collection("studies").document("com.Kunal.CardinalKit").collection("users").document("GdKC73SAz6MHL7DrVeve1UMcA902").collection("surveys")
-//
-//                   docRef.getDocuments { (querySnapshot, err) in
-//                        if let err = err {
-//                                  print("Error getting documents: \(err)")
-//                              } else {
-//                                  for document in querySnapshot!.documents {
-//                                      print("\(document.documentID) => \(document.data())")
-//                                  }
-//                              }
-//                   }
-//
-//           }
+
         /**
          Given a file, use the Firebase SDK to store it in Google Storage.
         */
@@ -1324,4 +1206,38 @@ struct WithdrawalVC: UIViewControllerRepresentable {
     }
     
 }
+
+struct CareCardVC: UIViewControllerRepresentable {
+  
+
+        var controllers: [UIViewController]
+
+        func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+        }
+    
+        func makeUIViewController(context: Context) -> UIPageViewController {
+               let pageViewController = UIPageViewController(
+                   transitionStyle: .scroll,
+                   navigationOrientation: .horizontal)
+
+               return pageViewController
+           }
+
+        func updateUIViewController(_ pageViewController: UIPageViewController, context: Context) {
+               pageViewController.setViewControllers(
+                   [controllers[0]], direction: .forward, animated: true)
+           }
+    
+    
+        class Coordinator: NSObject {
+            var parent: CareCardVC
+
+            init(_ cardcardvc: CareCardVC) {
+                self.parent = cardcardvc
+        }
+    }
+        
+}
+
 
