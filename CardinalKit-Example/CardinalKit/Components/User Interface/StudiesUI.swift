@@ -13,32 +13,83 @@ import SwiftUI
 public var healthscale1 = 0
 public var healthscale2 = 0
 
-var synchronizedStoreManager: OCKSynchronizedStoreManager = {
-    let store = OCKStore(name: "my-store")
-    store.populateSampleData()
-    let manager = OCKSynchronizedStoreManager(wrapping: store)
-    return manager
-}()
+
+
+//hjsong
+
+// Show OCKDailyPageViewController in SwiftUI
+struct CareStudiesUI: UIViewControllerRepresentable {
+    
+    var vc: CareViewController
+    func makeUIViewController(context: Context) -> CareViewController {
+        return self.vc
+    }
+    
+    func updateUIViewController(_ vc: CareViewController, context: Context) {
+  
+    }
+ 
+}
+// Show OCKDailyPageViewController in SwiftUI
+struct CareInsightUI: UIViewControllerRepresentable {
+    
+    var vc: InsightViewController
+    func makeUIViewController(context: Context) -> InsightViewController {
+        return self.vc
+    }
+    
+    func updateUIViewController(_ vc: InsightViewController, context: Context) {
+  
+    }
+ 
+}
+
+//hjsong
 
 
 struct StudiesUI: View {
     
     let color: Color
     let config = CKPropertyReader(file: "CKConfiguration")
+    var date = ""
+
+
     
     init() {
         self.color = Color(config.readColor(query: "Primary Color"))
-    }
+        
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM. d, YYYY"
+        self.date = formatter.string(from: date)
+       
+        }
+ 
+
+    
+    
     
     var body: some View {
+        
         TabView {
-            ActivitiesView(color: self.color)
+                List {
+                VStack{
+                //Text(config.read(query: "Study Title")).font(.system(size: 25, weight:.bold)).foregroundColor(self.color)
+                //Text(config.read(query: "Team Name")).font(.system(size: 15, weight:.light))
+                Text(self.date).font(.system(size: 18, weight: .regular)).padding()
+                ActivitiesView(color: self.color)
+                CareActivitiesView(color: self.color)
+               //CareStudiesUI(vc:CareViewController(storeManager: CareStudyTasks.synchronizedStoreManager))  // using OCKDailyPageViewController
+                }//.listStyle(GroupedListStyle())
+                }
                 .tabItem {
-                    Image("tab_activities").renderingMode(.template)
-                    Text("Activities")
-            }
-            
-            InsightView(color: self.color)
+                        Image("tab_activities").renderingMode(.template)
+                        Text("Activities")
+                }
+   
+            // using OCKDailyPageViewController,  if you click the date, show the progress for that particular date
+            CareInsightUI (vc: InsightViewController(storeManager: CareStudyTasks.synchronizedStoreManager))
+                //hjsong ToDo could we embed result of ORKtasks here? Should be viewed consistently. Decision point : The visualization of ORK should be in swiftUI or UIkit?
                 .tabItem{
                     Image("tab_dashboard").renderingMode(.template)
                     Text("Insights")
@@ -61,31 +112,17 @@ struct StudiesUI: View {
     }
 }
 
-struct StudyItem: Identifiable {
-    var id = UUID()
-    let image: UIImage
-    var title = ""
-    var description = ""
-    let task: ORKOrderedTask
-    
-    
-    init(study: StudyTableItem) {
-
-        self.image = study.image!
-        self.title = study.title
-        self.description = study.subtitle
-        self.task = study.task
-    }
-}
 
 
 
-struct ActivitiesView: View {
+// hjsong
+// Show the OCK task in SwiftUI
+struct CareActivitiesView: View {
     let color: Color
     let config = CKPropertyReader(file: "CKConfiguration")
     var date = ""
     var activities: [StudyItem] = []
-    //var activities_care : [StudyCareItem] = []
+  
     
     var taskView = OCKInstructionsTaskView()
     var nauseaTask : OCKAnyTask?
@@ -111,32 +148,88 @@ struct ActivitiesView: View {
 
      
     var body: some View {
-        //MySimpleTaskView()
+   
         VStack {
-            Text(config.read(query: "Study Title")).font(.system(size: 25, weight:.bold)).foregroundColor(self.color)
-            Text(config.read(query: "Team Name")).font(.system(size: 15, weight:.light))
-            Text(self.date).font(.system(size: 18, weight: .regular)).padding()
-            List {
-                Section(header: Text("Current Activities")) {
-                    
-
+            // hjsong
+            // ToDo :  define CareActivities like Activities,  refer to ActivitiesView()
+            // To Do : display each CareActivities defined for the next 7 days.
+            // To Do : Refer to how each element of Activites is defined using StudyItem.  Define each CareActivities whose basic unit is "CareItem".
+            //         CareItem should be defined in StudyTableItem.swift, as StudyItem, and StudyTableItem are definded in the same file.
+            //         The file is a starting point you declare tasks at the high level for both ORKTask and OCKTask.
+            //List {
+            //    Section(header: Text("Current Activities")) {
+            //    ForEach(0 ..< 7) {   // ToDo : show the next 7 days tasks
                     CareKit.SimpleTaskView (
-                        taskID: "doxylamine", eventQuery: OCKEventQuery(for:Date()), storeManager: synchronizedStoreManager
+                        taskID: "doxylamine", eventQuery: OCKEventQuery(for:Date()), storeManager: CareStudyTasks.synchronizedStoreManager
+                        )  // hjsong  ToDo : instead of hard-coded "doxylamine", you have to use CareItem and its taskid.
+                    CareKit.SimpleTaskView (
+                        taskID: "doxylamine", eventQuery: OCKEventQuery(for:Date()), storeManager: CareStudyTasks.synchronizedStoreManager
                         )
                     
                     CareKit.SimpleTaskView (
-                        taskID: "survey",  eventQuery: OCKEventQuery(for:Date()), storeManager: synchronizedStoreManager
+                        taskID: "survey",  eventQuery: OCKEventQuery(for:Date()), storeManager: CareStudyTasks.synchronizedStoreManager
                         )
                     CareKit.InstructionsTaskView (
-                        taskID: "nausea", eventQuery: OCKEventQuery(for:Date()), storeManager: synchronizedStoreManager
+                        taskID: "nausea", eventQuery: OCKEventQuery(for:Date()), storeManager: CareStudyTasks.synchronizedStoreManager
                         )
-                    
+                }   //hjsong
+                    //ToDo : furthure Customization is possible? to show the ORK and OCK tasks look the same?
+                    //ToDo : Could we intodcue the scheduler at the top and if the user click the particular date, could we show OCKtasks only for the date?
           
-                }.listRowBackground(Color.white)
-            }.listStyle(GroupedListStyle())
+            //    }.listRowBackground(Color.white)
+            //}.listStyle(GroupedListStyle())
         }
 }
+
+
+
+struct StudyItem: Identifiable {
+    var id = UUID()
+    let image: UIImage
+    var title = ""
+    var description = ""
+    let task: ORKOrderedTask
+    
+    
+    init(study: StudyTableItem) {
+
+        self.image = study.image!
+        self.title = study.title
+        self.description = study.subtitle
+        self.task = study.task
+    }
 }
+
+struct ActivitiesView: View {
+    let color: Color
+    let config = CKPropertyReader(file: "CKConfiguration")
+    var date = ""
+    var activities: [StudyItem] = []
+    
+    init(color: Color) {
+        self.color = color
+        
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM. d, YYYY"
+        
+        self.date = formatter.string(from: date)
+        
+        let studyTableItems = StudyTableItem.allValues
+        for study in studyTableItems {
+            self.activities.append(StudyItem(study: study))
+        }
+    }
+    
+    var body: some View {
+               
+                    ForEach(0 ..< self.activities.count) {
+                        ActivityView(icon: self.activities[$0].image, title: self.activities[$0].title, description: self.activities[$0].description, tasks: self.activities[$0].task)
+                    }
+
+    }
+}
+
 
 
 
@@ -354,205 +447,6 @@ struct VideosView: View{
 // TODO: Complete Insight Page
 
     let db = Firestore.firestore()
-
-public struct InsightView: View {
-    let color: Color
-    
-    init(color: Color) {
-        self.color = color
-    }
-
-   
-
-var days : [String] = ["M","T","W","T","F","S"]
-
-    var cgfloat = CGFloat(healthscale1)
-    var cgfloat1 = CGFloat(healthscale2)
-
-    
-    
-    public var body: some View {
-        ScrollView {
-            VStack {
-                HStack {
-                    // TODO: Add row of numbers and circles
-                    Text("13  ").font(.headline)
-                    Text("14  ").font(.headline)
-                    Text("15  ").font(.headline)
-                    Text("16  ").font(.headline)
-                    Text("17  ").font(.headline)
-                    Text("18  ").font(.headline)
-                    Text("19  ").font(.headline)
-                }//.border(Color.gray).frame(width: UIScreen.main.bounds.size.width)
-                Spacer()
-                Spacer()
-                Text("Sep 13, 2020")
-                
-    // Card #1
-    VStack{
-                   VStack {
-                       VStack {
-                           Text("Back Pain").font(.headline)
-                           Text("Level of Pain").font(.subheadline)
-                       }.padding(15)
-//                                       Spacer()
-                    
-                                HStack {
-                                  // 2
-                                    
-                                    VStack {
-                                             // 4
-                                             Spacer()
-                                             // 5
-                                        HStack(alignment: .bottom){
-                                             Rectangle()
-                                                .fill(Color.red)
-                                                .frame(width: 10, height: CGFloat(healthscale1) )
-                                                Rectangle()
-                                                  .fill(Color.red)
-                                                    .frame(width: 10, height: CGFloat(healthscale2))
-                                            
-                                        }
-                                             // 6
-                                               Text("S")
-                                               .font(.footnote)
-                                               .frame(height: 20)
-                                        
-                                           }
-                                  ForEach(0..<6) { temp in
-                                    // 3
-                                    VStack {
-                                      // 4
-                                      Spacer()
-                                      // 5
-                                      Rectangle()
-                                        .fill(Color.red)
-                                        .frame(width: 10, height: 01)
-                                      // 6
-                                        Text(self.days[temp])
-                                        .font(.footnote)
-                                        .frame(height: 20)
-                                    }
-                                  }
-                    }
-
-
-                       Spacer()
-                       Spacer()
-                       Spacer()                   }
-               }.frame(width: 250, height: 250, alignment: .center)
-               .border(Color.red)
-               .padding(8)
-    
-                //card 2
-                VStack{
-                    VStack {
-                        VStack {
-                            Text("Six Minute Walk").font(.headline)
-                            Text("Distance (in meters)").font(.subheadline)
-                        }.padding(15)
-                        
-                        HStack {
-                           // 2
-                             
-                             VStack {
-                                      // 4
-                                      Spacer()
-                                      // 5
-                                 HStack(alignment: .bottom){
-                                      Rectangle()
-                                        .fill(Color.red)
-                                         .frame(width: 10, height: 1)
-                                         
-                                     
-                                 }
-                                      // 6
-                                        Text("S")
-                                        .font(.footnote)
-                                        .frame(height: 20)
-                                 
-                                    }
-                           ForEach(0..<6) { temp in
-                             // 3
-                             VStack {
-                               // 4
-                               Spacer()
-                               // 5
-                               Rectangle()
-                                 .fill(Color.red)
-                                 .frame(width: 10, height: 01)
-                               // 6
-                                 Text(self.days[temp])
-                                 .font(.footnote)
-                                 .frame(height: 20)
-                             }
-                           }
-             }
-
-                        
-
-                        Spacer()
-                        Spacer()
-                        Spacer()                    }
-                }.frame(width: 250, height: 250, alignment: .center)
-                .border(Color.red)
-                .padding(8)
-                
-                // Card #3
-                VStack{
-                    VStack {
-                        VStack {
-                            Text("Breathe").font(.headline)
-                            Text("# of Times Completed").font(.subheadline)
-                        }.padding(15)
-                        
-                        HStack {
-                            VStack {
-                                Spacer()
-                                                                                         // 5
-                                    HStack(alignment: .bottom){
-                                         Rectangle()
-                                           .fill(Color.red)
-                                            .frame(width: 10, height: 1)
-                                    }
-                                         // 6
-                                           Text("S")
-                                           .font(.footnote)
-                                           .frame(height: 20)
-                                    }
-                              ForEach(0..<6) { temp in
-                                // 3
-                                VStack {
-                                  // 4
-                                Spacer()
-                                  // 5
-                                Rectangle()
-                                    .fill(Color.red)
-                                    .frame(width: 10, height: 01)
-                                  // 6
-                                    Text(self.days[temp])
-                                    .font(.footnote)
-                                    .frame(height: 20)
-                                }
-                              }
-                }
-
-                                               
-                        
-                        Spacer()
-                        Spacer()
-                        Spacer()
-                    }
-                }.frame(width: 250, height: 250, alignment: .center)
-                .border(Color.red)
-                .padding(8)
-                
-               
-            }
-        }
-        //.frame(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
-    }
-}
 
 
 
@@ -1207,37 +1101,146 @@ struct WithdrawalVC: UIViewControllerRepresentable {
     
 }
 
-struct CareCardVC: UIViewControllerRepresentable {
-  
 
-        var controllers: [UIViewController]
 
-        func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-        }
-    
-        func makeUIViewController(context: Context) -> UIPageViewController {
-               let pageViewController = UIPageViewController(
-                   transitionStyle: .scroll,
-                   navigationOrientation: .horizontal)
+class InsightViewController: OCKDailyPageViewController {
+    // This will be called each time the selected date changes.
+    // Use this as an opportunity to rebuild the content shown to the user.
 
-               return pageViewController
-           }
+    override func dailyPageViewController(_ dailyPageViewController: OCKDailyPageViewController,
+                                          prepare listViewController: OCKListViewController, for date: Date) {
 
-        func updateUIViewController(_ pageViewController: UIPageViewController, context: Context) {
-               pageViewController.setViewControllers(
-                   [controllers[0]], direction: .forward, animated: true)
-           }
-    
-    
-        class Coordinator: NSObject {
-            var parent: CareCardVC
+        let identifiers = ["doxylamine", "nausea",  "survey"]
+        var query = OCKTaskQuery(for: date)
+        query.ids = identifiers
+        query.excludesTasksWithNoEvents = true
 
-            init(_ cardcardvc: CareCardVC) {
-                self.parent = cardcardvc
+        storeManager.store.fetchAnyTasks(query: query, callbackQueue: .main) { result in
+            switch result {
+            case .failure(let error): print("Error: \(error)")
+            case .success(let tasks):
+
+                // Create a card for the nausea task if there are events for it on this day.
+                // Its OCKSchedule was defined to have daily events, so this task should be
+                // found in `tasks` every day after the task start date.
+                if let nauseaTask = tasks.first(where: { $0.id == "nausea" }) {
+
+                    // dynamic gradient colors
+                    let nauseaGradientStart = UIColor { traitCollection -> UIColor in
+                        return traitCollection.userInterfaceStyle == .light ? #colorLiteral(red: 0.9960784314, green: 0.3725490196, blue: 0.368627451, alpha: 1) : #colorLiteral(red: 0.8627432641, green: 0.2630574384, blue: 0.2592858295, alpha: 1)
+                    }
+                    let nauseaGradientEnd = UIColor { traitCollection -> UIColor in
+                        return traitCollection.userInterfaceStyle == .light ? #colorLiteral(red: 0.9960784314, green: 0.4732026144, blue: 0.368627451, alpha: 1) : #colorLiteral(red: 0.8627432641, green: 0.3598620686, blue: 0.2592858295, alpha: 1)
+                    }
+
+                    // Create a plot comparing nausea to medication adherence.
+                    let nauseaDataSeries = OCKDataSeriesConfiguration(
+                        taskID: "nausea",
+                        legendTitle: "Breathe",
+                        gradientStartColor: nauseaGradientStart,
+                        gradientEndColor: nauseaGradientEnd,
+                        markerSize: 10,
+                        eventAggregator: OCKEventAggregator.countOutcomeValues)
+
+                    let doxylamineDataSeries = OCKDataSeriesConfiguration(
+                        taskID: "doxylamine",
+                        legendTitle: "Brace",
+                        gradientStartColor: .systemGray2,
+                        gradientEndColor: .systemGray,
+                        markerSize: 10,
+                        eventAggregator: OCKEventAggregator.countOutcomeValues)
+
+                    let insightsCard = OCKCartesianChartViewController(plotType: .bar, selectedDate: date,
+                                                                       configurations: [nauseaDataSeries, doxylamineDataSeries],
+                                                                       storeManager: self.storeManager)
+                    insightsCard.chartView.headerView.titleLabel.text = "Breathe & Brace"
+                    insightsCard.chartView.headerView.detailLabel.text = "This Week"
+                    insightsCard.chartView.headerView.accessibilityLabel = "Breathe & Brace, This Week"
+                    listViewController.appendViewController(insightsCard, animated: false)
+
+                }
+            }
         }
     }
-        
+    
+    
 }
 
+
+class CareViewController: OCKDailyPageViewController{
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+
+    // This will be called each time the selected date changes.
+    // Use this as an opportunity to rebuild the content shown to the user.
+    override func dailyPageViewController(_ dailyPageViewController: OCKDailyPageViewController,
+                                          prepare listViewController: OCKListViewController, for date: Date) {
+
+        let identifiers = ["doxylamine", "nausea"]
+        var query = OCKTaskQuery(for: date)
+        query.ids = identifiers
+        query.excludesTasksWithNoEvents = true
+
+        storeManager.store.fetchAnyTasks(query: query, callbackQueue: .main) { result in
+            switch result {
+            case .failure(let error): print("Error: \(error)")
+            case .success(let tasks):
+
+           /*
+                //Create a card for survey
+                if let surveyTask = tasks.first(where: { $0.id == "survey" }) {
+                    let surveyCard = SurveyViewController(viewSynchronizer: SurveyViewSynchronizer(),task: surveyTask, eventQuery: .init(for: date),
+                                                                        storeManager: self.storeManager)
+                    listViewController.appendViewController(surveyCard, animated: false)
+                }
+                
+                
+                // Create a card for the doxylamine task if there are events for it on this day.
+                if let doxylamineTask = tasks.first(where: { $0.id == "doxylamine" }) {
+                    let doxylamineCard = OCKChecklistTaskViewController(task: doxylamineTask, eventQuery: .init(for: date),
+                                                                        storeManager: self.storeManager)
+                    listViewController.appendViewController(doxylamineCard, animated: false)
+                    
+                }
+            */
+                // Create a card for the nausea task if there are events for it on this day.
+                // Its OCKSchedule was defined to have daily events, so this task should be
+                // found in `tasks` every day after the task start date.
+                if let nauseaTask = tasks.first(where: { $0.id == "nausea" }) {
+
+                    // dynamic gradient colors
+                    let nauseaGradientStart = UIColor { traitCollection -> UIColor in
+                        return traitCollection.userInterfaceStyle == .light ? #colorLiteral(red: 0.9960784314, green: 0.3725490196, blue: 0.368627451, alpha: 1) : #colorLiteral(red: 0.8627432641, green: 0.2630574384, blue: 0.2592858295, alpha: 1)
+                    }
+                    let nauseaGradientEnd = UIColor { traitCollection -> UIColor in
+                        return traitCollection.userInterfaceStyle == .light ? #colorLiteral(red: 0.9960784314, green: 0.4732026144, blue: 0.368627451, alpha: 1) : #colorLiteral(red: 0.8627432641, green: 0.3598620686, blue: 0.2592858295, alpha: 1)
+                    }
+
+                    // Create a plot comparing nausea to medication adherence.
+                    let nauseaDataSeries = OCKDataSeriesConfiguration(
+                        taskID: "nausea",
+                        legendTitle: "Breathe",
+                        gradientStartColor: nauseaGradientStart,
+                        gradientEndColor: nauseaGradientEnd,
+                        markerSize: 10,
+                        eventAggregator: OCKEventAggregator.countOutcomeValues)
+
+                    let doxylamineDataSeries = OCKDataSeriesConfiguration(
+                        taskID: "doxylamine",
+                        legendTitle: "Brace",
+                        gradientStartColor: .systemGray2,
+                        gradientEndColor: .systemGray,
+                        markerSize: 10,
+                        eventAggregator: OCKEventAggregator.countOutcomeValues)
+
+                    let nauseaCard = OCKButtonLogTaskViewController(task: nauseaTask, eventQuery: .init(for: date),
+                                                                    storeManager: self.storeManager)
+                    listViewController.appendViewController(nauseaCard, animated: false)
+                }
+            }
+        }
+    }
+}
 
