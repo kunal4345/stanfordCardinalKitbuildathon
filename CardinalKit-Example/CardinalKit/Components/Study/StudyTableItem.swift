@@ -10,7 +10,33 @@ import UIKit
 import ResearchKit
 
 import SwiftUI
-//hjsong
+import CareKit
+import CareKitStore
+
+/* ToDo
+enum CareStudyTableItem: Int {
+    
+    static var allValues: [CareStudyTableItem] {
+        var index = 0
+        return Array (
+            AnyIterator {
+                let returnedElement = self.init(rawValue: index)
+                index = index + 1
+                return returnedElement
+            }
+        )
+    }
+    
+    case doxylamine, survey, nausea
+    var careTask : String {
+        switch self {
+        case .doxylamine:
+            return   extract task from CareStudyTasks.synchronizedStoreManager  // not sure if the task should be in TaskID (String) or OCKTask
+            }
+    
+    }
+}
+*/
 
 enum StudyTableItem: Int {
     
@@ -31,7 +57,7 @@ enum StudyTableItem: Int {
     var task: ORKOrderedTask {
         switch self {
         case .survey:
-            return StudyTasks.sf12Task
+            return StudyTasks.sf12Task  // hjsong : details are defined in StudyTasks.swift
         case .activeTask:
             return StudyTasks.walkingTask
         case .coffee:
@@ -87,36 +113,5 @@ enum StudyTableItem: Int {
 
                 }
       }
-            
-
-    
-//    case coffee
-//
-//    var task: ORKOrderedTask {
-//        switch self {
-//        case .coffee:
-//            return StudyTasks.coffeeTask
-//        }
-//    }
-//
-//    var title: String {
-//        switch self {
-//        case .coffee:
-//            return "Coffee Task"
-//        }
-//    }
-//
-//    var subtitle: String {
-//        switch self {
-//        case .coffee:
-//            return "Record your coffee intake for the day."
-//        }
-//    }
-//
-//    var image: UIImage? {
-//        switch self {
-//        case .coffee:
-//            return UIImage(named: "CoffeeIcon")
-//        }
-//    }
+        
 }

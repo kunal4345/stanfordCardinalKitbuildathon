@@ -6,6 +6,8 @@
 //
 
 import ResearchKit
+import CareKit
+import CareKitStore
 
 /**
  This file contains some sample `ResearchKit` tasks
@@ -78,7 +80,8 @@ struct StudyTasks {
         let instructionStep = ORKInstructionStep(identifier: "IntroStep")
         instructionStep.title = "Breathe"
         instructionStep.text = "Repeat 10 times"
-        instructionStep.detailText = "\n\n* Take a slow breath in through your nose, breathing into your lower belly for about 4 seconds\n* Hold for 1 to 2 seconds\n *Exhale slowly through your mouth for about 4 seconds\n*Wait a few seconds before taking another breath"
+        instructionStep.detailText = "\n\n* Take a slow breath in through your nose, breathing into your lower belly for about 4 seconds\n"
+        //Hold for 1 to 2 seconds\n *Exhale slowly through your mouth for about 4 seconds\n*Wait a few seconds before taking another breath"
         
         
         steps += [instructionStep]
@@ -124,3 +127,85 @@ struct StudyTasks {
         return ORKOrderedTask(identifier: "SurveyTask-SF12", steps: steps)
     }()
 }
+
+
+
+
+// hjsong
+// define OCK tasks in detail and add them to given OCKstore
+
+struct CareStudyTasks   {
+    
+
+    static var synchronizedStoreManager : OCKSynchronizedStoreManager {
+        let store = OCKStore(name: "my-sstore13")
+        store.initTasks(tasks : ["doxylamine", "nausea", "survey"])
+        let manager = OCKSynchronizedStoreManager(wrapping: store)
+        return manager
+    }
+    
+// hjsong
+// ToDo : after adding new tasks into the store, return the created tasks to CareStudyTableItem. The tasks could be taskId (String) or OCKTask.
+}
+
+
+//hjsong
+extension OCKStore {
+
+    // Adds tasks and contacts into the store
+    func initTasks(tasks task_list : [String]) -> [OCKTask] {
+
+       // extract id from task_list
+        
+        let thisMorning = Calendar.current.startOfDay(for: Date())
+        let aFewDaysAgo = Calendar.current.date(byAdding: .day, value: -4, to: thisMorning)!
+        let beforeBreakfast = Calendar.current.date(byAdding: .hour, value: 8, to: aFewDaysAgo)!
+        let afterLunch = Calendar.current.date(byAdding: .hour, value: 14, to: aFewDaysAgo)!
+
+        let schedule = OCKSchedule(composing: [
+            OCKScheduleElement(start: beforeBreakfast, end: nil,
+                               interval: DateComponents(day: 1)),
+
+            OCKScheduleElement(start: afterLunch, end: nil,
+                               interval: DateComponents(day:1))
+        ])
+
+        
+        var doxylamine = OCKTask(id: "doxylamine", title: "Brace",
+                                 carePlanUUID: nil, schedule: schedule)
+        doxylamine.instructions = "Wear for as long as desired"
+
+
+        let nauseaSchedule = OCKSchedule(composing: [OCKScheduleElement(start: beforeBreakfast, end: nil, interval: DateComponents(day: 2))])
+        var nausea = OCKTask(id: "nausea", title: "Breathe",
+                             carePlanUUID: nil, schedule: nauseaSchedule)
+        nausea.impactsAdherence = false
+        nausea.instructions = "\u{2022} Take a slow breath in through your nose, breathing into your lower belly (for about 4 seconds).\n\n"
+        //\u{2022}Hold for 1 to 2 seconds.\n\n\u{2022}Exhale slowly through your mouth (for about 4 seconds).\n\n\u{2022} Wait a few seconds before taking another breath."
+
+        
+        let surveySchedule = OCKSchedule(composing: [OCKScheduleElement(start: beforeBreakfast, end: nil, interval: DateComponents(day: 2))])
+        var survey=OCKTask(id: "survey", title: "Pain", carePlanUUID: nil, schedule: surveySchedule)
+        survey.instructions = "Back Pain"
+        
+        //OCKStoreError
+
+        //addTasks([nausea, doxylamine], callbackQueue: .main, completion: nil)
+        addTasks([nausea, doxylamine], callbackQueue: .main) { result in
+            switch result {
+            case .failure (let error) : print ("Error \(error)")
+            case .success : print  ("Success")
+            
+            }
+        }
+        addTasks([survey], callbackQueue: .main, completion: nil)
+
+    
+        return [doxylamine,nausea,survey]
+  
+}
+}
+
+
+
+
